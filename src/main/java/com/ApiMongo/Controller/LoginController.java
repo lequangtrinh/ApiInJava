@@ -57,7 +57,8 @@ public class LoginController {
 	public ResponseEntity<ResponseObject> CreateLogin(@RequestBody Login data){
 		List<Login> lg=reqlg.findAll();
 		if(data.getUsername() !="" || data.password !="") {
-			List<Login> res =lg.stream().filter(x -> 1 == x.getState() && (data.getUsername()).toLowerCase().equals(x.getUsername().toLowerCase())).toList();
+			List<Login> res =lg.stream().filter(x -> 1 == x.getState() 
+												&& (data.getUsername()).toLowerCase().equals(x.getUsername().toLowerCase())).toList();
 			if(res.toString().equals("[]")){
 				data.setCreateAt(new Date(System.currentTimeMillis()));
 				data.setUpdateAt(null);
@@ -117,7 +118,9 @@ public class LoginController {
 	@GetMapping("/DoLogin")
 	public ResponseEntity<ResponseObject> LoginDo(@RequestBody Login data){		
 		List<Login> lg=reqlg.findAll();
-		List<Login> res =lg.stream().filter(x -> 1 == x.getState() && data.getUsername().toLowerCase().equals(x.getUsername().toLowerCase()) && data.getPassword().toLowerCase().equals(x.getPassword().toLowerCase())).toList();
+		List<Login> res =lg.stream().filter(x -> 1 == x.getState() 
+											&& data.getUsername().toLowerCase().equals(x.getUsername().toLowerCase()) 
+											&& data.getPassword().toLowerCase().equals(x.getPassword().toLowerCase())).toList();
 		
 		if(res.toString().equals("[]")){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("failed","Vui Lòng Kiểm Tra Thông Tin",""));
